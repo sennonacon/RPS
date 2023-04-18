@@ -3,16 +3,18 @@ let computerScore = 0;
 let round = 1;
 const RPS = ['Rock', 'Paper', 'Scissors'];
 
+const playerScoreElem = document.getElementById('playerScore');
+const computerScoreElem = document.getElementById('computerScore');
+const winnerDisplay = document.getElementById('result');
 
 function getComputerChoice(rps) {
     const randomRPS = Math.floor(Math.random() * rps.length);
     const item = rps[randomRPS];
     return item;
 }
-// trying to upload
 
 function playRound(playerSelection) {
- const computerSelection = getComputerChoice(RPS);
+    const computerSelection = getComputerChoice(RPS);
     let result;
     if (playerSelection === computerSelection) {
         result = 'Tie!';
@@ -28,17 +30,15 @@ function playRound(playerSelection) {
         computerScore++;
     }
 
-
-    console.log(`Results: ${result} (Player: ${playerScore} | Computer: ${computerScore})`);
-  
+    playerScoreElem.textContent = playerScore;
+    computerScoreElem.textContent = computerScore;
+    winnerDisplay.textContent = result;
     round++;
 
- 
     if (playerScore === 3 || computerScore === 3) {
         endGame();
     }
 }
-
 
 function endGame() {
     let winner;
@@ -47,13 +47,12 @@ function endGame() {
     } else {
         winner = 'Computer';
     }
-    
 
+    winnerDisplay.textContent = `${winner} wins the game!`;
     document.getElementById('rock').disabled = true;
     document.getElementById('paper').disabled = true;
     document.getElementById('scissors').disabled = true;
 }
-
 
 window.onload = function() {
     document.getElementById('rock').addEventListener('click', function() {
